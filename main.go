@@ -16,7 +16,9 @@ func main() {
 	app, err := app.NewApplication()
 	if err != nil {
 		panic(err)
+
 	}
+	defer app.DB.Close()
 	r := routes.SetupRoutes(app)
 	server := &http.Server{
 		Addr:         fmt.Sprintf(":%d", port),

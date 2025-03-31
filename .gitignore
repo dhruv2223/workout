@@ -1,0 +1,42 @@
+# Binaries & Compiled Files
+*.exe
+*.out
+*.a
+*.o
+*.so
+*.dylib
+
+# Build & Distribution Directories
+/bin/
+/dist/
+/build/
+
+# Go Modules & Dependencies
+go.sum
+go.work
+go.work.sum
+/vendor/
+
+# Logs & Debugging
+*.log
+*.test
+*.prof
+*.trace
+*.cover
+*.cov
+*.tmp
+
+# IDE & Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# OS-Specific Files
+.DS_Store
+Thumbs.db
+
+# Temporary or Cache Files
+/tmp/
+/cache/

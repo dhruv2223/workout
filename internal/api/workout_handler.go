@@ -3,14 +3,10 @@ package api
 import (
 	"database/sql"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
-	"strconv"
 	"workout/internal/utils"
 	"workout/store"
-
-	"github.com/go-chi/chi/v5"
 )
 
 type WorkoutHandler struct {

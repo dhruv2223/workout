@@ -116,7 +116,7 @@ func (wh *WorkoutHandler) HandleUpdateWorkout(w http.ResponseWriter, r *http.Req
 	utils.WriteJSON(w, http.StatusOK, utils.Envelope{"workout": existingWorkout})
 }
 func (wh *WorkoutHandler) DeleteWorkout(w http.ResponseWriter, r *http.Request) {
-	workoutId, err := utils.ReadIdParam(r)
+	paramWorkoutId, err := utils.ReadIdParam(r)
 	if err != nil {
 		wh.logger.Printf("ERROR: ReadIdParam : %v", err)
 		utils.WriteJSON(w, http.StatusBadRequest, utils.Envelope{"error": "invalid workout id"})
@@ -124,13 +124,11 @@ func (wh *WorkoutHandler) DeleteWorkout(w http.ResponseWriter, r *http.Request) 
 	}
 	err = wh.workoutStore.DeleteWorkout(workoutId)
 	if err == sql.ErrNoRows {
-		wh.logger.Printf("ERROR: DeleteWorkout : %v", err)
-		utils.WriteJSON(w, http.StatusNotFound, utils.Envelope{"error": "no such workout exists"})
+		http.Error(w, "workout not found", http.StatusNotFound)
 		return
 	}
 	if err != nil {
-		wh.logger.Printf("ERROR: DeleteWorkout : %v", err)
-		utils.WriteJSON(w, http.StatusInternalServerError, utils.Envelope{"error": "internal server error"})
+		http.Error(w, "Failed to delete workout", http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusNoContent)
